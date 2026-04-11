@@ -135,6 +135,9 @@ MonoBehaviour:
   _baseJumpSpeed: 3
   _gravity: 0.3
   _punchJumpSpeed: 8
+  _punchLine: {fileID: 0}
+  _maxLineLength: 0
+  _numPunchesPerLine: 0
   _bounceTimeDelay: 0.01
 --- !u!114 &5961632802425128116
 MonoBehaviour:
