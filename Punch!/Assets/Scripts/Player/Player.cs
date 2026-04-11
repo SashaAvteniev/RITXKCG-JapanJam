@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _punchJumpSpeed;
     private Vector3 _velocity;
+    private Vector3 _forwardVector;
+    private float yRotation;
     private float _verticalVelocity;
 
     [SerializeField]
@@ -50,6 +52,8 @@ public class Player : MonoBehaviour
 
         _velocity.y += _verticalVelocity * Time.deltaTime;
         this.transform.position = _velocity;
+        this.transform.forward = _forwardVector;
+
 
     }
 
@@ -59,7 +63,11 @@ public class Player : MonoBehaviour
         pos.x += _lastMoveInput.x * _moveSpeed * Time.fixedDeltaTime;
         pos.z += _lastMoveInput.y * _moveSpeed * Time.fixedDeltaTime;
         _velocity.x = pos.x;
-        _velocity.z = pos.z;
+        _velocity.z = pos.z;w
+
+        _forwardVector.x = _lastMoveInput.x;
+        _forwardVector.z = _lastMoveInput.y;
+        _forwardVector.y = 0;
     }
 
     private void Punch()
