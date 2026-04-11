@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Default Local Group
   m_GUID: 8436ebf170259ed4e8904972fce5deba
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 255a55f71c9795347933e7c149f50b98
+    m_Address: Assets/ExternalResources/Datas/CharacterSelectData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 846674fb9b6dead4d95f750e9e3c42d4, type: 2}
   m_SchemaSet:
