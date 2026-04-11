@@ -28,25 +28,25 @@ public class MeshRendererWrapper : MonoBehaviour
     /// <summary>
     /// 現在の色を取得する関数
     /// </summary>
-    public Color GetCurrentColor()
+    public Color GetCurrentMaterialColor()
         => _renderer.material.color;
 
     /// <summary>
     /// 現在の色を更新する関数
     /// </summary>
     /// <param name="color"></param>
-    public void SetSpriteColor(Color color)
+    public void SetMaterialColor(Color color)
         => _renderer.material.color = color;
 
     /// <summary>
-    /// 文字UIの透明度を取得する関数
+    /// マテリアルの透明度を取得する関数
     /// </summary>
-    public float GetSpriteAlpha()
+    public float GetMaterialAlpha()
         => _renderer.material.color.a;
 
     /// <summary>
-    /// 文字UIの透明度を取得する関数
+    /// マテリアルの透明度を取得する関数
     /// </summary>
-    public void SetSpriteAlpha(float value)
+    public void SetMaterialAlpha(float value)
         => _renderer.material.color = new(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, value);
 }
