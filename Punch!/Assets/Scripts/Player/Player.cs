@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     private float _bounceTimeDelay;
     private float _timer;
     private bool _isGrounded;
+    private bool _punched;
 
     private Vector2 _lastMoveInput;
 
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
         _inputListner.OnPunchInputPressedCallBack = Punch;
         _timer = _bounceTimeDelay;
         _isGrounded = true;
+        _punched = false;
         _verticalVelocity = 0;
     }
     private void FixedUpdate()
@@ -43,8 +45,7 @@ public class Player : MonoBehaviour
         Jump();
         Move();
         Gravity();
-        //Debug.Log(_verticalVelocity);
-        Debug.Log(_isGrounded);
+
         _velocity.y += _verticalVelocity * Time.deltaTime;
         this.transform.position = _velocity;
 
@@ -61,8 +62,13 @@ public class Player : MonoBehaviour
 
     private void Punch()
     {
-        // TODO:Punch process write here
-        Debug.Log("Punch!");
+        Debug.Log(_verticalVelocity);
+        if (!_punched)
+        {
+            _verticalVelocity = 0;
+            _verticalVelocity += _punchJumpSpeed;
+            _punched = true;
+        }
     }
 
     private void Jump() 
@@ -79,12 +85,13 @@ public class Player : MonoBehaviour
         if (!_isGrounded) 
         {
             _verticalVelocity -= _gravity;
-            if (_velocity.y < 0)
+            if (_velocity.y < -.2)
             {
                 _velocity.y = 0;
                 _timer = _bounceTimeDelay;
                 _isGrounded = true;
                 _verticalVelocity = 0;
+                _punched = false;
             }
         }
     }
