@@ -63,11 +63,14 @@ public class Player : MonoBehaviour
         pos.x += _lastMoveInput.x * _moveSpeed * Time.fixedDeltaTime;
         pos.z += _lastMoveInput.y * _moveSpeed * Time.fixedDeltaTime;
         _velocity.x = pos.x;
-        _velocity.z = pos.z;w
+        _velocity.z = pos.z;
+        if (_lastMoveInput.magnitude > 0)
+        {
+            _forwardVector.x = _lastMoveInput.x;
+            _forwardVector.z = _lastMoveInput.y;
+            _forwardVector.y = 0;
+        }
 
-        _forwardVector.x = _lastMoveInput.x;
-        _forwardVector.z = _lastMoveInput.y;
-        _forwardVector.y = 0;
     }
 
     private void Punch()
