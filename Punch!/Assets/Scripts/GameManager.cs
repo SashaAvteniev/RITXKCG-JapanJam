@@ -74,6 +74,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         EventDispatcher.Instance.Initialize();
         InputSystemManager.Instance.Initialize();
+        SoundManager.Instance.Initialize();
     }
 
     private void InitializeScene()
