@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4186743685229685720}
   - component: {fileID: 5961632802425128116}
   - component: {fileID: 8450566999358567410}
+  - component: {fileID: 5483643562237394428}
   m_Layer: 0
   m_Name: TestPlayer
   m_TagString: Untagged
@@ -128,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _inputListner: {fileID: 8450566999358567410}
+  _puncher: {fileID: 5483643562237394428}
   _moveSpeed: 5
   _baseJumpSpeed: 3
   _gravity: 0.3
@@ -175,3 +177,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c39511e094cc584cbbff35a9104b170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControllerInputListener
+--- !u!114 &5483643562237394428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2777220989784470596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfff616322b953d4881b82c9836ce0dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GroundPuncher
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 8

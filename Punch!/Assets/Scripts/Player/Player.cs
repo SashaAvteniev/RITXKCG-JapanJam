@@ -4,6 +4,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private ControllerInputListener _inputListner;
+    [SerializeField]
+    private GroundPuncher _puncher;
 
     
     [SerializeField]
@@ -68,6 +70,7 @@ public class Player : MonoBehaviour
             _verticalVelocity = 0;
             _verticalVelocity += _punchJumpSpeed;
             _punched = true;
+            _puncher.OnPunch();
         }
     }
 
