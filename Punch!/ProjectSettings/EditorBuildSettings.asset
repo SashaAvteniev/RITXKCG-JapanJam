@@ -8,15 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TitleScene.unity
     guid: 40b0d4e22d266064e8912994490933bb
-  - enabled: 0
-    path: Assets/Scenes/TitleSceneOverRayScene.unity
-    guid: b776c033fbe6b6d429857f602b1c8bb8
   - enabled: 1
     path: Assets/Scenes/PlayScene.unity
     guid: ac033cb325b372c4aafb9c93e94e79ee
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/TitleOverRayScene.unity
+    guid: 32734db18691ac34f9e7943aa18a3a16
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 245124e5d67e0c346a4792b3ba235837, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
