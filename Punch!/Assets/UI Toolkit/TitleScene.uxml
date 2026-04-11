@@ -1,0 +1,4 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Label text="TitleScene" style="font-size: 60px; align-self: center; top: 257px;"/>
+    <ui:Label text="PressAnyButton" style="align-self: center; font-size: 65px; top: 288px;"/>
+</ui:UXML>
