@@ -29,7 +29,7 @@ public class StageBlock : MonoBehaviour
         PutSprite();
         _holeParticle.Play();
         SoundManager.Instance.PlaySE(SFX.Punch);
-        Debug.Log("Punched");
+        //Debug.Log("Punched");
         // TODO:Write the code here to make this a block that the player can fall through
     }
 

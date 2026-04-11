@@ -1,4 +1,6 @@
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting.Dependencies.Sqlite;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -33,11 +35,16 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float _bounceTimeDelay;
+    [SerializeField]
     private float _timer;
     private bool _isGrounded;
     private bool _punchingStarted;
     private bool _punched;
     private int _timesPunched;
+    private float _distancePerJump;
+    private float _currentLineLength;
+    [SerializeField]
+    private Transform _spawnPoint;
 
     private Vector2 _lastMoveInput;
 
@@ -52,6 +59,10 @@ public class Player : MonoBehaviour
         _verticalVelocity.y = 0;
         _punchLine.enabled = false;
         _punchingStarted = false;
+        _timesPunched = 0;
+        _distancePerJump = _maxLineLength / _numPunchesPerLine;
+        _currentLineLength = _maxLineLength;
+        this.transform.position = _spawnPoint.position;
     }
     private void FixedUpdate()
     {
@@ -64,17 +75,11 @@ public class Player : MonoBehaviour
         Move();
         Gravity();
 
-        if (_punched)
-        {
-            _timeInJump += Time.fixedDeltaTime;
-        }
 
-        _velocity += _verticalVelocity * Time.fixedDeltaTime;
+        _velocity.y += _verticalVelocity.y * Time.fixedDeltaTime;
 
-        if(_horizontalVelocity.x > 0 || _horizontalVelocity.z > 0)
-        {
-            _velocity += _horizontalVelocity * Time.fixedDeltaTime;
-        }
+        _velocity.x = _horizontalVelocity.x;
+        _velocity.z = _horizontalVelocity.z;
 
         this.transform.position = _velocity;
 
@@ -85,14 +90,7 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        /*
-        Vector3 pos = this.transform.position;
-        pos.x += _lastMoveInput.x * _moveSpeed * Time.fixedDeltaTime;
-        pos.z += _lastMoveInput.y * _moveSpeed * Time.fixedDeltaTime;
-        _velocity.x = pos.x;
-        _velocity.z = pos.z;
-        */
-        if (_lastMoveInput.magnitude > 0 && !_punchingStarted)
+        if (_lastMoveInput.magnitude > 0 && !_punchingStarted && !_punched)
         {
             _forwardVector.x = _lastMoveInput.x;
             _forwardVector.z = _lastMoveInput.y;
@@ -104,53 +102,73 @@ public class Player : MonoBehaviour
         {
             _punchLine.enabled = false;
         }
-        _punchLine.SetPosition(1, transform.position + _forwardVector * _maxLineLength);
-
-        float distancePerJump = _maxLineLength / _numPunchesPerLine;
-        Vector3 nextPoint = transform.position + _forwardVector * distancePerJump;
+        _punchLine.SetPosition(0,new Vector3(this.transform.position.x, this.transform.position.y-.4f, this.transform.position.z));
+        _punchLine.SetPosition(1, new Vector3((transform.position + _forwardVector.normalized * _currentLineLength).x, this.transform.position.y - .4f, (transform.position + _forwardVector.normalized * _currentLineLength).z));
         if (_punched)
         {
-            // _velocity = this.transform.position;
-            _horizontalVelocity.x += nextPoint.x*Time.fixedDeltaTime;
-            _horizontalVelocity.z += nextPoint.z*Time.fixedDeltaTime;
+            _horizontalVelocity.x += _forwardVector.normalized.x * _distancePerJump * Time.fixedDeltaTime;
+            _horizontalVelocity.z += _forwardVector.normalized.z * _distancePerJump * Time.fixedDeltaTime;
         }
         else
         {
-            _horizontalVelocity = Vector3.zero;
+            _horizontalVelocity.x = transform.position.x;
+            _horizontalVelocity.z = transform.position.z;
         }
-
 
     }
 
     private void Punch()
     {
-        float distancePerJump = _maxLineLength / _numPunchesPerLine;
-
-        if (_timesPunched == 0)
-        {
-            _punchingStarted = true;
-
-        }
-        _timesPunched++;
-        if (_timesPunched > _numPunchesPerLine)
-        {
-            _punchingStarted = false;
-        }
-        if (_punchingStarted)
+        if (!_punched)
         {
             if (_punchLine.enabled)
             {
-                if (!_punched)
+                if (_timesPunched == 0)
                 {
+                    Debug.Log(_punched);
+                    _punchingStarted = true;
+                    _currentLineLength = _currentLineLength / 2;
+                    _timesPunched++;
+
+
                     _verticalVelocity = Vector3.zero;
                     _verticalVelocity.y += _punchJumpSpeed;
                     _punched = true;
                     _puncher.OnPunch();
+                    
+                    if (_currentLineLength < _distancePerJump)
+                    {
+                        _currentLineLength = 0;
+                    }
+                    
+                }
+                else
+                {
+                    if (_punchingStarted)
+                    {
+                        _timesPunched++;
+
+                        _verticalVelocity = Vector3.zero;
+                        _verticalVelocity.y += _punchJumpSpeed;
+                        _punched = true;
+                        _isGrounded = false;
+                        _puncher.OnPunch();
+                        _currentLineLength /= 2;
+                        if (_currentLineLength < _distancePerJump)
+                        {
+                            _currentLineLength = 0;
+                        }
+                        
+
+                    }
+                    if (_timesPunched > _numPunchesPerLine - 1)
+                    {
+                        _punchingStarted = false;
+                        _timesPunched = 0;
+                    }
                 }
             }
         }
-
-
     }
 
     private void Jump() 
@@ -167,14 +185,18 @@ public class Player : MonoBehaviour
         if (!_isGrounded) 
         {
             _verticalVelocity.y -= _gravity;
-            if (_velocity.y < -.2)
+            if (_velocity.y < 0)
             {
                 _velocity.y = 0;
                 _timer = _bounceTimeDelay;
                 _isGrounded = true;
                 _verticalVelocity = Vector3.zero;
                 _punched = false;
-                _timeInJump = 0;
+                if (!_punchingStarted)
+                {
+                    _currentLineLength = _maxLineLength;
+                    //_horizontalVelocity = Vector3.zero;
+                }
             }
         }
     }
