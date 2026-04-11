@@ -22,6 +22,7 @@ public enum eScene
     Title,
     MainGame,
     Result,
+    CharacterSelect
 }
 
 /// <summary>
