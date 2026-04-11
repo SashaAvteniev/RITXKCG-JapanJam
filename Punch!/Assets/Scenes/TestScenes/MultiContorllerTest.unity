@@ -338,6 +338,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2991549594779905935, guid: ebff2ffe7618179488983cf762428031, type: 3}
+      propertyPath: _stageScale.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2991549594779905935, guid: ebff2ffe7618179488983cf762428031, type: 3}
+      propertyPath: _stageScale.y
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 7383580800610794692, guid: ebff2ffe7618179488983cf762428031, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
