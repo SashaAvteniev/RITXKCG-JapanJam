@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &20909869 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2777220989784470596, guid: ab153fd142fbed540962897fc3541a96, type: 3}
-  m_PrefabInstance: {fileID: 3828378458350879712}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &35790147
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +322,7 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 20909869}
+  m_PlayerPrefab: {fileID: 2777220989784470596, guid: ab153fd142fbed540962897fc3541a96, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -496,11 +491,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2991549594779905935, guid: ebff2ffe7618179488983cf762428031, type: 3}
       propertyPath: _stageScale.x
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2991549594779905935, guid: ebff2ffe7618179488983cf762428031, type: 3}
       propertyPath: _stageScale.y
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7383580800610794692, guid: ebff2ffe7618179488983cf762428031, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1037,7 +1032,7 @@ SceneRoots:
   - {fileID: 1520495386}
   - {fileID: 1696982466}
   - {fileID: 1514222801}
-  - {fileID: 3828378458350879712}
   - {fileID: 1443553067}
   - {fileID: 8623347514169556814}
   - {fileID: 592015732}
+  - {fileID: 3828378458350879712}
