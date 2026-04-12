@@ -25,8 +25,8 @@ public class TextWrapper : MonoBehaviour
             return;
 
         _text = this.GetComponent<TextMeshProUGUI>();
-        var fontAssset = Addressables.LoadAssetAsync<TMP_FontAsset>(SummarizeResourceDirectory.FONT).WaitForCompletion();
-        _text.font = fontAssset;
+        //var fontAssset = Addressables.LoadAssetAsync<TMP_FontAsset>(SummarizeResourceDirectory.FONT).WaitForCompletion();
+        //_text.font = fontAssset;
     }
 
 

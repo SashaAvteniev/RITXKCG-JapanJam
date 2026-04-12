@@ -2,7 +2,14 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static UnityEngine.UI.Image;
+
+public enum eCharacterType
+{
+    Sora,
+    Nasu,
+    Ichigo,
+    Kaeru
+}
 
 public class Player : MonoBehaviour
 {
@@ -54,7 +61,16 @@ public class Player : MonoBehaviour
     private LayerMask _groundMask;
     private bool falling;
 
-    private void Start()
+    [Header("Status")]
+    [SerializeField]
+    private int _life;
+
+    public int PlayerID
+    { get; set; }
+    public int SelectedCharacter
+    { get; set; }
+
+    public void Initialize()
     {
         _inputListner.Initialzie();
         _inputListner.OnLStickInputCallBack = (input) => _lastMoveInput = input;
@@ -71,6 +87,8 @@ public class Player : MonoBehaviour
         this.transform.position = _spawnPoint.position;
         _punchTimer = 0;
         falling = false;
+
+        EventDispatcher.Instance.Dispatch($"SetPlayerImage{PlayerID}", SelectedCharacter);
     }
     private void FixedUpdate()
     {
@@ -248,5 +266,12 @@ public class Player : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void GetDamage()
+    {
+        --_life;
+
+        EventDispatcher.Instance.Dispatch($"OnLifeChanged{PlayerID}", _life);
     }
 }
