@@ -15,7 +15,7 @@ public class GroundPuncher : MonoBehaviour
             origin,
             Vector3.down,
             out RaycastHit hitObj,
-            1,
+            4,
             _groundMask.value
         );
 

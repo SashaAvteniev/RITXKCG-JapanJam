@@ -12,6 +12,8 @@ public class StageBlock : MonoBehaviour
     [SerializeField]
     private float _holeTime;
 
+    [SerializeField]
+    private GameObject _holeObject;
     private void Start()
     {
         _durator = new();
@@ -29,6 +31,7 @@ public class StageBlock : MonoBehaviour
         PutSprite();
         _holeParticle.Play();
         SoundManager.Instance.PlaySE(SFX.Punch);
+        _holeObject.layer = 5;
         //Debug.Log("Punched");
         // TODO:Write the code here to make this a block that the player can fall through
     }
@@ -38,6 +41,7 @@ public class StageBlock : MonoBehaviour
     {
         _holeSprite.SetMaterialAlpha(0.0f);
         // TODO:Write the code here to allow the player to pass through this area again
+        _holeObject.layer = 3;
     }
 
     private void PutSprite()

@@ -141,8 +141,11 @@ MonoBehaviour:
   _maxLineLength: 4
   _numPunchesPerLine: 2
   _bounceTimeDelay: 0.01
-  _timer: 0
+  _punchWait: 1
   _spawnPoint: {fileID: 7129740611070504757}
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &5961632802425128116
 MonoBehaviour:
   m_ObjectHideFlags: 0
