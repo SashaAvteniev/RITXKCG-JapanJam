@@ -944,6 +944,10 @@ PrefabInstance:
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4186743685229685720, guid: ab153fd142fbed540962897fc3541a96, type: 3}
+      propertyPath: _punchWait
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4186743685229685720, guid: ab153fd142fbed540962897fc3541a96, type: 3}
       propertyPath: _baseJumpSpeed
       value: 3
       objectReference: {fileID: 0}
@@ -959,9 +963,25 @@ PrefabInstance:
       propertyPath: _bounceTimeDelay
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 4186743685229685720, guid: ab153fd142fbed540962897fc3541a96, type: 3}
+      propertyPath: _groundMask.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483643562237394428, guid: ab153fd142fbed540962897fc3541a96, type: 3}
+      propertyPath: _groundMask.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5961632802425128116, guid: ab153fd142fbed540962897fc3541a96, type: 3}
       propertyPath: m_DefaultControlScheme
       value: Gamepad
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129740611070504757, guid: ab153fd142fbed540962897fc3541a96, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129740611070504757, guid: ab153fd142fbed540962897fc3541a96, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.748
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

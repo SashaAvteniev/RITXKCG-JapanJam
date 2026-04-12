@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class Player : MonoBehaviour
 {
@@ -35,18 +36,23 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float _bounceTimeDelay;
-    [SerializeField]
     private float _timer;
     private bool _isGrounded;
     private bool _punchingStarted;
     private bool _punched;
     private int _timesPunched;
+    [SerializeField]
+    private float _punchWait;
+    private float _punchTimer;
     private float _distancePerJump;
     private float _currentLineLength;
     [SerializeField]
     private Transform _spawnPoint;
 
     private Vector2 _lastMoveInput;
+    [SerializeField]
+    private LayerMask _groundMask;
+    private bool falling;
 
     private void Start()
     {
@@ -63,6 +69,8 @@ public class Player : MonoBehaviour
         _distancePerJump = _maxLineLength / _numPunchesPerLine;
         _currentLineLength = _maxLineLength;
         this.transform.position = _spawnPoint.position;
+        _punchTimer = 0;
+        falling = false;
     }
     private void FixedUpdate()
     {
@@ -70,7 +78,26 @@ public class Player : MonoBehaviour
         {
             _timer -= Time.fixedDeltaTime;
         }
-        
+        if (_punched)
+        {
+            var hit = Physics.Raycast(
+                this.transform.position,
+                Vector3.down,
+                out RaycastHit hitObj,
+                3,
+                _groundMask.value
+            );
+            if (!hit)
+            {
+                falling = true;
+            }
+            else
+            {
+                falling = false;
+            }
+        }
+
+
         Jump();
         Move();
         Gravity();
@@ -85,15 +112,37 @@ public class Player : MonoBehaviour
 
         this.transform.forward = _forwardVector;
 
-
+        if (!_punchingStarted)
+        {
+            _punchTimer -= Time.fixedDeltaTime;
+        }
     }
 
     private void Move()
     {
+        //Makes movement only up down left right
         if (_lastMoveInput.magnitude > 0 && !_punchingStarted && !_punched)
         {
-            _forwardVector.x = _lastMoveInput.x;
-            _forwardVector.z = _lastMoveInput.y;
+            if (_lastMoveInput.x > 0 && _lastMoveInput.x > Mathf.Abs(_lastMoveInput.y))
+            {
+                _forwardVector = new Vector3 (1, 0, 0);
+
+            }
+            if (_lastMoveInput.x < 0 && Mathf.Abs(_lastMoveInput.x) > Mathf.Abs(_lastMoveInput.y))
+            {
+                _forwardVector = new Vector3(-1, 0, 0);
+
+            }
+            if (_lastMoveInput.y > 0 && _lastMoveInput.y > Mathf.Abs(_lastMoveInput.x))
+            {
+                _forwardVector = new Vector3(0, 0, 1);
+
+            }
+            if (_lastMoveInput.y < 0 && Mathf.Abs(_lastMoveInput.y) > Mathf.Abs(_lastMoveInput.x))
+            {
+                _forwardVector = new Vector3(0, 0, -1);
+
+            }
             _forwardVector.y = 0;
 
             _punchLine.enabled = true;
@@ -119,13 +168,12 @@ public class Player : MonoBehaviour
 
     private void Punch()
     {
-        if (!_punched)
+        if (!_punched && _punchTimer < 0)
         {
             if (_punchLine.enabled)
             {
                 if (_timesPunched == 0)
                 {
-                    Debug.Log(_punched);
                     _punchingStarted = true;
                     _currentLineLength = _currentLineLength / 2;
                     _timesPunched++;
@@ -165,6 +213,7 @@ public class Player : MonoBehaviour
                     {
                         _punchingStarted = false;
                         _timesPunched = 0;
+                        _punchTimer = _punchWait;
                     }
                 }
             }
@@ -185,7 +234,7 @@ public class Player : MonoBehaviour
         if (!_isGrounded) 
         {
             _verticalVelocity.y -= _gravity;
-            if (_velocity.y < 0)
+            if (_velocity.y < 0 && !falling)
             {
                 _velocity.y = 0;
                 _timer = _bounceTimeDelay;
