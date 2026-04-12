@@ -12,12 +12,12 @@ public class TitleSceneInput : MonoBehaviour
     [SerializeField] private float delayTime = 1.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        InputSystem.onAnyButtonPress.CallOnce(ctrl=>OnClick());
-    }
+    //void Start()
+    //{
+    //    InputSystem.onAnyButtonPress.CallOnce(ctrl=>OnClick());
+    //}
 
-    private void OnClick()
+    public void OnClick()
     {
         SceneManager.LoadScene("TitleOverRayScene", LoadSceneMode.Additive);
         //PlauSceneに遷移する前に少し待つ

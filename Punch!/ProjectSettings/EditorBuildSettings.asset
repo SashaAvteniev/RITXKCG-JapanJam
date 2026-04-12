@@ -8,9 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TitleScene.unity
     guid: 40b0d4e22d266064e8912994490933bb
-  - enabled: 0
-    path: Assets/Scenes/TitleSceneOverRayScene.unity
-    guid: b776c033fbe6b6d429857f602b1c8bb8
+  - enabled: 1
+    path: Assets/Scenes/CharacterSelectScene.unity
+    guid: 57174dc0061ace1478c5c52e710a0bf2
   - enabled: 1
     path: Assets/Scenes/PlayScene.unity
     guid: ac033cb325b372c4aafb9c93e94e79ee
