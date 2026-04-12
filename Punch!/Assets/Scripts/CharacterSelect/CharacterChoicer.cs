@@ -12,7 +12,7 @@ public class CharacterChoicer : MonoBehaviour
     private ControllerInputListener _controllerListner;
 
     [SerializeField]
-    private CharacterSelectData _selectData;
+    private PlayerInfo _playerInfo;
 
     [SerializeField]
     private int _playerValue = 2;
@@ -27,16 +27,14 @@ public class CharacterChoicer : MonoBehaviour
         _controllerListner.OnLStickInputCallBack = MoveSelect;
         _controllerListner.OnPunchInputPressedCallBack = SubmitSelect;
 
-        _selectData.Initialize();
-
         Action[] CreateButtonFunc()
         {
             return new Action[]
                 {
-                    () => _chooseNumber = 0,
-                    () => _chooseNumber = 1,
-                    () => _chooseNumber = 2,
-                    () => _chooseNumber = 3,
+                    () => _chooseNumber = (int)eCharacterType.Sora,
+                    () => _chooseNumber = (int)eCharacterType.Nasu,
+                    () => _chooseNumber = (int)eCharacterType.Ichigo,
+                    () => _chooseNumber = (int)eCharacterType.Kaeru,
                 };
         }
     }
@@ -64,11 +62,11 @@ public class CharacterChoicer : MonoBehaviour
         switch (_currentSelectPlayer)
         {
             case 0:
-                _selectData.Player1Character = _chooseNumber;
+                _playerInfo.PlayerDatas[0].SelectedCharacterID = _chooseNumber;
                 EventDispatcher.Instance.Dispatch("OnSelected0", _chooseNumber);
                 break;
             case 1:
-                _selectData.Player1Character = _chooseNumber;
+                _playerInfo.PlayerDatas[1].SelectedCharacterID = _chooseNumber;
                 EventDispatcher.Instance.Dispatch("OnSelected1", _chooseNumber);
                 break;
         }

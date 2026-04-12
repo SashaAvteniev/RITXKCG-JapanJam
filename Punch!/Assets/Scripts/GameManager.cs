@@ -87,6 +87,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 break;
             case eScene.MainGame:
                 // TODO:MainGameSceneManagerInitialize
+                MainGameManager.Instance.Initialize();
                 break;
             case eScene.Result:
                 //ResultSceneManagerInitialize
