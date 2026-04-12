@@ -1,6 +1,11 @@
+using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using static System.Net.Mime.MediaTypeNames;
+using System.ComponentModel.Design.Serialization;
 
 /// <summary>
 /// プレイヤーの入退室の管理クラス（アウトゲーム）
@@ -30,6 +35,13 @@ public class PlayerJoinManager : MonoBehaviour
     [SerializeField]
     private TextWrapper _textPlayer2;
 
+    [SerializeField]
+    private Transform canvas;
+    [SerializeField]
+    private GameObject playerTextPrefab;
+
+    public List<GameObject> players;
+    public List<Sprite> deviceSprites;
 
     private void Awake()
     {
@@ -44,8 +56,12 @@ public class PlayerJoinManager : MonoBehaviour
 
         _textPlayer1.Initialize();
         _textPlayer2.Initialize();
-        _textPlayer1.SetText("WaiTing Connect Controller : Player1");
-        _textPlayer2.SetText("WaiTing Connect Controller : Player2");
+        _textPlayer1.SetText("Waiting Connect Controller : Player 1");
+        _textPlayer2.SetText("Waiting Connect Controller : Player 2");
+
+        // Initialize player list and add player 1
+        players = new List<GameObject>();
+        AddPlayerText(players.Count);
     }
 
     private void OnDestroy()
@@ -69,6 +85,7 @@ public class PlayerJoinManager : MonoBehaviour
         {
             if (context.control.device == device)
             {
+
                 return;
             }
         }
@@ -89,23 +106,68 @@ public class PlayerJoinManager : MonoBehaviour
         switch (currentPlayerCount)
         {
             case 0:
-                _textPlayer1.SetText("Connect !! : Player1");
+                _textPlayer1.SetText("Connect !! : Player 1");
                 break;
             case 1:
-                _textPlayer2.SetText("Connect !! : Player2");
+                _textPlayer2.SetText("Connect !! : Player 2");
                 break;
         }
 
+        // If keyboard connected
+        if (context.control.device is Keyboard)
+        {
+            UnityEngine.Debug.Log("Keyboard joined.");
+            UnityEngine.UI.Image deviceImage = players[currentPlayerCount].GetComponentInChildren<UnityEngine.UI.Image>();
+            deviceImage.sprite = deviceSprites[0];
+            deviceImage.enabled = true;
+        }
+        // If controller connected
+        else
+        {
+            UnityEngine.Debug.Log("Controller joined.");
+            UnityEngine.UI.Image deviceImage = players[currentPlayerCount].GetComponentInChildren<UnityEngine.UI.Image>();
+            deviceImage.sprite = deviceSprites[1];
+            deviceImage.enabled = true;
+        }
+
+        // Increment player count and add a new player
         currentPlayerCount++;
+        AddPlayerText(currentPlayerCount);
 
-        Debug.Log($"Player{currentPlayerCount}Joined");
-
-        
+        UnityEngine.Debug.Log($"Player{currentPlayerCount}Joined");
 
         // プレイヤー数が最大数に達していたら、処理を終了
         if (currentPlayerCount >= maxPlayerCount)
         {
             SceneManager.LoadScene("CharacterSelectScene");
         }
+    }
+
+    private void AddPlayerText(int playerCount)
+    {
+        GameObject playerTextInstance = Instantiate(playerTextPrefab, canvas);
+        RectTransform rect = playerTextInstance.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        switch (playerCount)
+        {
+            case 0:
+                rect.anchoredPosition = new Vector2(-500f, 200f);
+                break;
+            case 1:
+                rect.anchoredPosition = new Vector2(500f, 200f);
+                break;
+            case 2:
+                rect.anchoredPosition = new Vector2(-500f, -150f);
+                break;
+            case 3:
+                rect.anchoredPosition = new Vector2(500f, -150f);
+                break;
+        }
+
+        playerTextInstance.GetComponent<TMPro.TextMeshProUGUI>().text = "Player " + (playerCount + 1);
+
+        players.Add(playerTextInstance);
     }
 }

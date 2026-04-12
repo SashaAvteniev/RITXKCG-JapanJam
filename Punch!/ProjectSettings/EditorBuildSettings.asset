@@ -20,9 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/Scenes/TitleOverRayScene.unity
-    guid: 32734db18691ac34f9e7943aa18a3a16
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 245124e5d67e0c346a4792b3ba235837, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
