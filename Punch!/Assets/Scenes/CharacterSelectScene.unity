@@ -514,6 +514,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d11ba6d06c98219428ef9f56f2a98ba6, type: 2}
     - target: {fileID: 9065978831547617958, guid: 251d82c6a9b87134bb04386dc941dbea, type: 3}
+      propertyPath: _playerValue
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9065978831547617958, guid: 251d82c6a9b87134bb04386dc941dbea, type: 3}
       propertyPath: _buttonController
       value: 
       objectReference: {fileID: 727063697}

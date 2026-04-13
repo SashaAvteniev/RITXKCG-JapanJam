@@ -1,11 +1,18 @@
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
+using TMPro;
+using static System.Net.Mime.MediaTypeNames;
 
 public class MainGameManager : SingletonMonoBehaviour<MainGameManager>
 {
     [SerializeField]
     private PlayerInput[] _playerPrefab;
+
+    [SerializeField]
+    private GameObject[] _playerLives;
 
     [SerializeField]
     private PlayerInfo _playerInfo;
@@ -36,6 +43,9 @@ public class MainGameManager : SingletonMonoBehaviour<MainGameManager>
             playerInstance.PlayerID = i;
             playerInstance.SelectedCharacter = _playerInfo.PlayerDatas[i].SelectedCharacterID;
             playerInstance.Initialize();
+
+            _playerLives[i].GetComponent<UnityEngine.UI.Image>().enabled = true;
+            _playerLives[i].GetComponentInChildren<TextMeshProUGUI>().enabled = true;
         }
     }
 }
