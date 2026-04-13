@@ -1630,8 +1630,8 @@ MonoBehaviour:
   playerTextPrefab: {fileID: 9022174573661364514, guid: ee420a72ca2889d4999a855022526447, type: 3}
   players: []
   deviceSprites:
-  - {fileID: 21300000, guid: b6819a300c596844bb68f864ad45739d, type: 3}
-  - {fileID: 21300000, guid: 9ce80c7b891114f4d8390b33e05b031f, type: 3}
+  - {fileID: 21300000, guid: 0ac4588e1a176f644b319b04d9579982, type: 3}
+  - {fileID: 21300000, guid: 610e8e0946a166142bb116d41bd0943b, type: 3}
 --- !u!4 &2005261872
 Transform:
   m_ObjectHideFlags: 0

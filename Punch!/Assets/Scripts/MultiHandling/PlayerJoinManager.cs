@@ -119,6 +119,9 @@ public class PlayerJoinManager : MonoBehaviour
             UnityEngine.Debug.Log("Keyboard joined.");
             UnityEngine.UI.Image deviceImage = players[currentPlayerCount].GetComponentInChildren<UnityEngine.UI.Image>();
             deviceImage.sprite = deviceSprites[0];
+            RectTransform deviceImageRect = deviceImage.GetComponent<RectTransform>();
+            deviceImageRect.sizeDelta = new Vector2(1506f, 433f);
+            deviceImageRect.localScale = new Vector3(0.15f, 0.15f, 0.15f);
             deviceImage.enabled = true;
         }
         // If controller connected
@@ -127,6 +130,9 @@ public class PlayerJoinManager : MonoBehaviour
             UnityEngine.Debug.Log("Controller joined.");
             UnityEngine.UI.Image deviceImage = players[currentPlayerCount].GetComponentInChildren<UnityEngine.UI.Image>();
             deviceImage.sprite = deviceSprites[1];
+            RectTransform deviceImageRect = deviceImage.GetComponent<RectTransform>();
+            deviceImageRect.sizeDelta = new Vector2(1179f, 845f);
+            deviceImageRect.localScale = new Vector3(0.10f, 0.10f, 0.10f);
             deviceImage.enabled = true;
         }
 
