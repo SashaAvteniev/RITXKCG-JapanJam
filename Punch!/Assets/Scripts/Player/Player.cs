@@ -17,8 +17,6 @@ public class Player : MonoBehaviour
     private ControllerInputListener _inputListner;
     [SerializeField]
     private GroundPuncher _puncher;
-    [SerializeField]
-    private LevelLoader _levelLoader;
     
     [SerializeField]
     private float _moveSpeed; // for test]
