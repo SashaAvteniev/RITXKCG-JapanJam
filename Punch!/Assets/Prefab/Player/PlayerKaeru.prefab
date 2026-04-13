@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8450566999358567410}
   - component: {fileID: 5483643562237394428}
   m_Layer: 0
-  m_Name: TestPlayer
+  m_Name: PlayerKaeru
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 320901f2945e3c542b9250d0467c28b8, type: 2}
+  - {fileID: 2100000, guid: 89712e6a2a636a048b95ca09dfb5134d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -413,7 +413,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 320901f2945e3c542b9250d0467c28b8, type: 2}
+  - {fileID: 2100000, guid: 89712e6a2a636a048b95ca09dfb5134d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

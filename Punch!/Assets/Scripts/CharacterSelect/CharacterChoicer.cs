@@ -15,13 +15,14 @@ public class CharacterChoicer : MonoBehaviour
     private PlayerInfo _playerInfo;
 
     [SerializeField]
-    private int _playerValue = 2;
+    private int _playerCount = 2;
 
     private int _chooseNumber = 0;
     private int _currentSelectPlayer = 0;
 
     private void Start()
     {
+        _playerCount = PlayerJoinManager.currentPlayerCount;
         _buttonController.Initialize(CreateButtonFunc());
 
         _controllerListner.OnLStickInputCallBack = MoveSelect;
@@ -69,11 +70,19 @@ public class CharacterChoicer : MonoBehaviour
                 _playerInfo.PlayerDatas[1].SelectedCharacterID = _chooseNumber;
                 EventDispatcher.Instance.Dispatch("OnSelected1", _chooseNumber);
                 break;
+            case 2:
+                _playerInfo.PlayerDatas[2].SelectedCharacterID = _chooseNumber;
+                EventDispatcher.Instance.Dispatch("OnSelected2", _chooseNumber);
+                break;
+            case 3:
+                _playerInfo.PlayerDatas[3].SelectedCharacterID = _chooseNumber;
+                EventDispatcher.Instance.Dispatch("OnSelected3", _chooseNumber);
+                break;
         }
 
         ++_currentSelectPlayer;
 
-        if (_currentSelectPlayer < _playerValue)
+        if (_currentSelectPlayer < _playerCount)
             return;
 
         SceneManager.LoadScene("PlayScene");

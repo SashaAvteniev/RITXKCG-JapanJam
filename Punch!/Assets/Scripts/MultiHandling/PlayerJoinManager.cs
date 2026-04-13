@@ -28,7 +28,7 @@ public class PlayerJoinManager : MonoBehaviour
     // Join済みのデバイス情報
     private InputDevice[] joinedDevices = default;
     // 現在のプレイヤー数
-    private int currentPlayerCount = 0;
+    public static int currentPlayerCount = 0;
 
     [SerializeField]
     private TextWrapper _textPlayer1;
