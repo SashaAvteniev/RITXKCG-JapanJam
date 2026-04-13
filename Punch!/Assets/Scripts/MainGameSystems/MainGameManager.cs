@@ -30,7 +30,7 @@ public class MainGameManager : SingletonMonoBehaviour<MainGameManager>
                 pairWithDevice: _playerInfo.PlayerDatas[i].PairWithDevice
                 );
 
-            player.transform.position = _playerPoses[i];
+            player.transform.position = new Vector3(_playerPoses[i].x - .75f, 0, _playerPoses[i].z-.75f);
 
             var playerInstance = player.GetComponent<Player>();
             playerInstance.PlayerID = i;

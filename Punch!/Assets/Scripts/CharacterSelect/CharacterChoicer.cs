@@ -62,12 +62,12 @@ public class CharacterChoicer : MonoBehaviour
         switch (_currentSelectPlayer)
         {
             case 0:
-                _playerInfo.PlayerDatas[0].SelectedCharacterID = _chooseNumber;
-                EventDispatcher.Instance.Dispatch("OnSelected0", _chooseNumber);
+                _playerInfo.PlayerDatas[0].SelectedCharacterID = _chooseNumber-1;
+                EventDispatcher.Instance.Dispatch("OnSelected0", _chooseNumber-1);
                 break;
             case 1:
-                _playerInfo.PlayerDatas[1].SelectedCharacterID = _chooseNumber;
-                EventDispatcher.Instance.Dispatch("OnSelected1", _chooseNumber);
+                _playerInfo.PlayerDatas[1].SelectedCharacterID = _chooseNumber-1;
+                EventDispatcher.Instance.Dispatch("OnSelected1", _chooseNumber-1);
                 break;
         }
 

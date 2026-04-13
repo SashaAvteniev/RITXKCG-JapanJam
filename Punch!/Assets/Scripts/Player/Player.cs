@@ -17,7 +17,8 @@ public class Player : MonoBehaviour
     private ControllerInputListener _inputListner;
     [SerializeField]
     private GroundPuncher _puncher;
-
+    [SerializeField]
+    private LevelLoader _levelLoader;
     
     [SerializeField]
     private float _moveSpeed; // for test]
@@ -60,11 +61,14 @@ public class Player : MonoBehaviour
     [SerializeField]
     private LayerMask _groundMask;
     private bool falling;
-
+    private Vector3 _distanceGone;
+    private bool _respawning;
+    private float _respawnTimer;
+    [SerializeField]
+    public int playerNumber;
     [Header("Status")]
     [SerializeField]
     private int _life;
-
     public int PlayerID
     { get; set; }
     public int SelectedCharacter
@@ -76,7 +80,7 @@ public class Player : MonoBehaviour
         _inputListner.OnLStickInputCallBack = (input) => _lastMoveInput = input;
         _inputListner.OnPunchInputPressedCallBack = Punch;
         _timer = _bounceTimeDelay;
-        _isGrounded = true;
+        _isGrounded = false;
         _punched = false;
         _verticalVelocity.y = 0;
         _punchLine.enabled = false;
@@ -87,53 +91,85 @@ public class Player : MonoBehaviour
         this.transform.position = _spawnPoint.position;
         _punchTimer = 0;
         falling = false;
-
+        _distanceGone = Vector3.zero;
+        _respawnTimer = 0;
+        _respawning = false;
         EventDispatcher.Instance.Dispatch($"SetPlayerImage{PlayerID}", SelectedCharacter);
+        WinnerTracker.instance.playerList.Add(this.gameObject);
     }
     private void FixedUpdate()
     {
-        if(_timer > 0)
+        if (_life > 0)
         {
-            _timer -= Time.fixedDeltaTime;
-        }
-        if (_punched)
-        {
-            var hit = Physics.Raycast(
-                this.transform.position,
-                Vector3.down,
-                out RaycastHit hitObj,
-                3,
-                _groundMask.value
-            );
-            if (!hit)
+            if (_respawning)
             {
-                falling = true;
+                _respawnTimer += Time.fixedDeltaTime;
+                if (_respawnTimer > 3)
+                {
+                    this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
+                    _isGrounded = false;
+                    _respawnTimer = 0;
+                    _respawning = false;
+                    _punchingStarted = false;
+                    _timesPunched = 0;
+                    _punchTimer = _punchWait;
+
+                }
             }
-            else
+            if (_timer > 0)
             {
-                falling = false;
+                _timer -= Time.fixedDeltaTime;
+            }
+            if (_punched)
+            {
+                var hit = Physics.Raycast(
+                    this.transform.position,
+                    Vector3.down,
+                    out RaycastHit hitObj,
+                    3,
+                    _groundMask.value
+                );
+                if (!hit)
+                {
+                    falling = true;
+
+                }
+                else
+                {
+                    falling = false;
+                }
+                if (falling && transform.position.y < -16)
+                {
+                    _respawning = true;
+                    falling = false;
+                    GetDamage();
+                }
+
+            }
+
+
+            Move();
+            Gravity();
+
+
+            _velocity.y += _verticalVelocity.y * Time.fixedDeltaTime;
+
+            _velocity.x = _horizontalVelocity.x;
+            _velocity.z = _horizontalVelocity.z;
+            if (!_respawning)
+            {
+                this.transform.position = _velocity;
+
+                this.transform.forward = _forwardVector;
+            }
+
+
+            if (!_punchingStarted)
+            {
+                _punchTimer -= Time.fixedDeltaTime;
             }
         }
-
-
-        Jump();
-        Move();
-        Gravity();
-
-
-        _velocity.y += _verticalVelocity.y * Time.fixedDeltaTime;
-
-        _velocity.x = _horizontalVelocity.x;
-        _velocity.z = _horizontalVelocity.z;
-
-        this.transform.position = _velocity;
-
-        this.transform.forward = _forwardVector;
-
-        if (!_punchingStarted)
-        {
-            _punchTimer -= Time.fixedDeltaTime;
-        }
+        
     }
 
     private void Move()
@@ -173,11 +209,12 @@ public class Player : MonoBehaviour
         _punchLine.SetPosition(1, new Vector3((transform.position + _forwardVector.normalized * _currentLineLength).x, this.transform.position.y - .4f, (transform.position + _forwardVector.normalized * _currentLineLength).z));
         if (_punched)
         {
-            _horizontalVelocity.x += _forwardVector.normalized.x * _distancePerJump * Time.fixedDeltaTime;
-            _horizontalVelocity.z += _forwardVector.normalized.z * _distancePerJump * Time.fixedDeltaTime;
+            _horizontalVelocity.x += _forwardVector.x * _distancePerJump * Time.fixedDeltaTime;
+            _horizontalVelocity.z += _forwardVector.z * _distancePerJump * Time.fixedDeltaTime;
         }
-        else
+        else if(!_respawning && !_punched) 
         {
+            Debug.Log(_horizontalVelocity.x);
             _horizontalVelocity.x = transform.position.x;
             _horizontalVelocity.z = transform.position.z;
         }
@@ -200,6 +237,7 @@ public class Player : MonoBehaviour
                     _verticalVelocity = Vector3.zero;
                     _verticalVelocity.y += _punchJumpSpeed;
                     _punched = true;
+                    _isGrounded = false;
                     _puncher.OnPunch();
                     
                     if (_currentLineLength < _distancePerJump)
@@ -238,21 +276,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Jump() 
-    {
-        if (_isGrounded && _timer < 0)
-        {
-             _verticalVelocity.y = _baseJumpSpeed;
-            _isGrounded = false;
-        }
-    }
-
     private void Gravity()
     {
         if (!_isGrounded) 
         {
-            _verticalVelocity.y -= _gravity;
-            if (_velocity.y < 0 && !falling)
+            _verticalVelocity.y -= _gravity*Time.fixedDeltaTime;
+            if (_velocity.y < .2 && !falling)
             {
                 _velocity.y = 0;
                 _timer = _bounceTimeDelay;
@@ -270,8 +299,11 @@ public class Player : MonoBehaviour
 
     private void GetDamage()
     {
-        --_life;
-
+        _life--;
+        if(_life <= 0)
+        {
+            WinnerTracker.instance.playerList.Remove(this.gameObject);
+        }
         EventDispatcher.Instance.Dispatch($"OnLifeChanged{PlayerID}", _life);
     }
 }
