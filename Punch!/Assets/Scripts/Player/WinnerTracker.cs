@@ -23,11 +23,6 @@ public class WinnerTracker : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -67,7 +62,7 @@ public class WinnerTracker : MonoBehaviour
         }
     }
 
-    public void AssignWinnder()
+    public void AssignWinner()
     {
         foreach (GameObject player in playerList)
         {
