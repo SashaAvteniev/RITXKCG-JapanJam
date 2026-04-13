@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
-using Unity.VisualScripting.Dependencies.Sqlite;
-using UnityEditor.Experimental.GraphView;
+//using Unity.VisualScripting.Dependencies.Sqlite;
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public enum eCharacterType
