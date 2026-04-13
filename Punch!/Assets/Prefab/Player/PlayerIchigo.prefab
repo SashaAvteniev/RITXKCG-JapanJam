@@ -147,7 +147,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerNumber: 3
-  _life: 0
+  _life: 3
 --- !u!114 &5961632802425128116
 MonoBehaviour:
   m_ObjectHideFlags: 0
