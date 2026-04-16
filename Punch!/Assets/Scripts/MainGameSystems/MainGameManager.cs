@@ -23,6 +23,7 @@ public class MainGameManager : SingletonMonoBehaviour<MainGameManager>
     public void Initialize()
     {
         CreatePlayer();
+        SoundManager.Instance.PlayBGM(BGM.MainGame);
     }
 
     private void CreatePlayer()

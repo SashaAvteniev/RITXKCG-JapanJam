@@ -260,8 +260,9 @@ public class Player : MonoBehaviour
                         {
                             _currentLineLength = 0;
                         }
-                        
 
+                        // Play jump SE
+                        SoundManager.Instance.PlaySE(SFX.Jump);
                     }
                     if (_timesPunched > _numPunchesPerLine - 1)
                     {
@@ -302,6 +303,7 @@ public class Player : MonoBehaviour
         {
             WinnerTracker.instance.playerList.Remove(this.gameObject);
         }
+        SoundManager.Instance.PlaySE(SFX.Fall);
         EventDispatcher.Instance.Dispatch($"OnLifeChanged{PlayerID}", _life);
     }
 }
