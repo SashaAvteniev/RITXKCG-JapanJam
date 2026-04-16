@@ -47,6 +47,16 @@ MonoBehaviour:
   _bgm:
   - _bgmKey: 2
     _clip: {fileID: 8300000, guid: 7add761781172954bbf7f2d81bceb1bc, type: 3}
+  - _bgmKey: 1
+    _clip: {fileID: 8300000, guid: b4d590e599356cc4fb4095d1488973f1, type: 3}
   _sfx:
   - _sfxKey: 0
-    _clip: {fileID: 8300000, guid: d0805f3ef3549cc468d33214e49bc0ef, type: 3}
+    _clip: {fileID: 8300000, guid: f3102b3d51ea89447bd0df75b2ea9b3c, type: 3}
+  - _sfxKey: 2
+    _clip: {fileID: 8300000, guid: 8465274fd9fa57441946b68229deb7a9, type: 3}
+  - _sfxKey: 3
+    _clip: {fileID: 8300000, guid: 633d9df1dd6b74546af2b15da16cfaa9, type: 3}
+  - _sfxKey: 1
+    _clip: {fileID: 8300000, guid: a27cd0d8ee92e5a49afb3678e0ae185b, type: 3}
+  - _sfxKey: 4
+    _clip: {fileID: 8300000, guid: 3e7a72fe8396a2049ab1daa80bc237b6, type: 3}

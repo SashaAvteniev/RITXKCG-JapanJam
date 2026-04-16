@@ -15,7 +15,10 @@ public enum SFX
 {
     // SEÇÃÉLÅ[ÇÇ±Ç±Ç…í«â¡Ç∑ÇÈ
     Punch,
-    
+    ButtonPress,
+    Fall,
+    Jump,
+    MoveForward,
 
     None
 }
