@@ -237,7 +237,9 @@ public class Player : MonoBehaviour
                     _punched = true;
                     _isGrounded = false;
                     _puncher.OnPunch();
-                    
+                    // Play jump SE
+                    SoundManager.Instance.PlaySE(SFX.Jump);
+
                     if (_currentLineLength < _distancePerJump)
                     {
                         _currentLineLength = 0;
@@ -260,9 +262,6 @@ public class Player : MonoBehaviour
                         {
                             _currentLineLength = 0;
                         }
-
-                        // Play jump SE
-                        SoundManager.Instance.PlaySE(SFX.Jump);
                     }
                     if (_timesPunched > _numPunchesPerLine - 1)
                     {

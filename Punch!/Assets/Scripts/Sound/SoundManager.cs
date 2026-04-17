@@ -148,7 +148,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     // =====================
     public void PlaySE(SFX key, AudioSource source = null)
     {
-        /*
+
         if (!_sfxTable.TryGetValue(key, out var clip))
             return;
 
@@ -156,6 +156,6 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
             _sfxSource.PlayOneShot(clip);
         else
             source.PlayOneShot(clip);
-        */
+
     }
 }
