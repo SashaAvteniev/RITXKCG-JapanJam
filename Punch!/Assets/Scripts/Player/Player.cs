@@ -286,6 +286,10 @@ public class Player : MonoBehaviour
                 _isGrounded = true;
                 _verticalVelocity = Vector3.zero;
                 _punched = false;
+
+                if (_timesPunched <= _numPunchesPerLine - 1)
+                    Punch();
+
                 if (!_punchingStarted)
                 {
                     _currentLineLength = _maxLineLength;
