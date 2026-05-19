@@ -52,7 +52,7 @@ public class WinnerTracker : MonoBehaviour
 
             DontDestroyOnLoad(playerList[0]);
 
-            resultManager = GameObject.FindGameObjectWithTag("Results").GetComponent<ResultManager>();
+            resultManager = ResultManager.Instance;
 
 
             if (resultManager != null)
