@@ -8,8 +8,10 @@ public class WinnerTracker : MonoBehaviour
     public List<GameObject> playerList = new();
     [SerializeField]
     private LevelLoader levelLoader;
-    private int winningNum;
-    private ResultManager resultManager;
+    //private int winningNum;
+    //private ResultManager resultManager;
+    [SerializeField]
+    private ResultInfo _resultInfo;
 
     public static WinnerTracker instance {  get; private set; }
     private void Awake()
@@ -20,7 +22,6 @@ public class WinnerTracker : MonoBehaviour
             return;
         }
         instance = this;
-        DontDestroyOnLoad(gameObject);
 
     }
 
@@ -45,20 +46,11 @@ public class WinnerTracker : MonoBehaviour
         }
         if(playersActive == 1)
         {
+            _resultInfo.WinnerPlayerID = playerList[0].GetComponent<Player>().playerNumber;
+            
             if(levelLoader != null)
             {
                 levelLoader.LoadNextLevel();
-            }
-
-            DontDestroyOnLoad(playerList[0]);
-
-            resultManager = ResultManager.Instance;
-
-
-            if (resultManager != null)
-            {
-                Debug.Log("hit");
-                resultManager._winnerId = playerList[0].GetComponent<Player>().playerNumber;
             }
 
         }

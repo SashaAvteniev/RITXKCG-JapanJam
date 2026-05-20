@@ -9,9 +9,6 @@ public class ResultManager : SingletonMonoBehaviour<ResultManager>
     public ResultInfo _resultInfo;
 
     [SerializeField]
-    public int _winnerId;
-
-    [SerializeField]
     public List<Sprite> winSprites;
 
     [SerializeField]
@@ -20,11 +17,12 @@ public class ResultManager : SingletonMonoBehaviour<ResultManager>
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        SetImage();
     }
 
     private void SetImage()
     {
-        switch (_winnerId)
+        switch (_resultInfo.WinnerPlayerID)
         {
             case 0:
                 winImage.GetComponent<UnityEngine.UI.Image>().sprite = winSprites[0];
