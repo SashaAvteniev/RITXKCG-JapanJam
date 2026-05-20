@@ -133,13 +133,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _inputListner: {fileID: 8450566999358567410}
   _puncher: {fileID: 5483643562237394428}
-  _moveSpeed: 5
   _baseJumpSpeed: 3
   _gravity: 16
   _punchJumpSpeed: 8
   _punchLine: {fileID: 4475068152043951765}
-  _maxLineLength: 2
-  _numPunchesPerLine: 2
+  _maxLineLength: 8
+  _numPunchesPerLine: 4
   _bounceTimeDelay: 0.01
   _punchWait: 1
   _spawnPoint: {fileID: 7129740611070504757}

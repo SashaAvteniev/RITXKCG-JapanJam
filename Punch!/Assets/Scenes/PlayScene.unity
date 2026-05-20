@@ -2352,6 +2352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WinnerTracker
   playerList: []
   levelLoader: {fileID: 1889343054}
+  _resultInfo: {fileID: 11400000, guid: d317cd6c584a97b49ac565e51ff629f8, type: 2}
 --- !u!4 &2102067472
 Transform:
   m_ObjectHideFlags: 0

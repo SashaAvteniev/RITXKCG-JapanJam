@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f305214324e924c83e487b300cfd67, type: 3}
   m_Name: ResultInfo
   m_EditorClassIdentifier: Assembly-CSharp::ResultInfo
-  WinnerPlayerID: 0
+  WinnerPlayerID: 1

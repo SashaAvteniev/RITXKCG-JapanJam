@@ -19,8 +19,6 @@ public class Player : MonoBehaviour
     private GroundPuncher _puncher;
     
     [SerializeField]
-    private float _moveSpeed; // for test]
-    [SerializeField]
     private float _baseJumpSpeed;
     [SerializeField]
     private float _gravity;
@@ -138,9 +136,9 @@ public class Player : MonoBehaviour
                 }
                 if (falling && transform.position.y < -16)
                 {
+                    GetDamage();
                     _respawning = true;
                     falling = false;
-                    GetDamage();
                 }
 
             }
@@ -286,6 +284,10 @@ public class Player : MonoBehaviour
                 _isGrounded = true;
                 _verticalVelocity = Vector3.zero;
                 _punched = false;
+
+                if (_timesPunched <= _numPunchesPerLine - 1)
+                    Punch();
+
                 if (!_punchingStarted)
                 {
                     _currentLineLength = _maxLineLength;
@@ -297,6 +299,9 @@ public class Player : MonoBehaviour
 
     private void GetDamage()
     {
+        if (_respawning)
+            return;
+
         _life--;
         if(_life <= 0)
         {

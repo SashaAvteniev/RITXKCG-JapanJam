@@ -2,15 +2,11 @@ using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 
-public class ResultManager : MonoBehaviour
+public class ResultManager : SingletonMonoBehaviour<ResultManager>
 {
     [SerializeField]
     public ResultInfo _resultInfo;
-
-    [SerializeField]
-    public int _winnerId;
 
     [SerializeField]
     public List<Sprite> winSprites;
@@ -21,13 +17,12 @@ public class ResultManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _winnerId = 0;
         SetImage();
     }
 
     private void SetImage()
     {
-        switch (_winnerId)
+        switch (_resultInfo.WinnerPlayerID)
         {
             case 0:
                 winImage.GetComponent<UnityEngine.UI.Image>().sprite = winSprites[0];
@@ -42,5 +37,7 @@ public class ResultManager : MonoBehaviour
                 winImage.GetComponent<UnityEngine.UI.Image>().sprite = winSprites[3];
                 break;
         }
+
+        winImage.SetActive(true);
     }
 }
